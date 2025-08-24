@@ -1,27 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cell Biology</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      line-height: 1.6;
-      background: #f9f9f9;
-    }
-    h1 {
-      color: #2c3e50;
-    }
-    p {
-      color: #333;
-    }
-  </style>
-</head>
-<body>
-  <h1>Cell Biology</h1>
-  <p>Welcome to the Cell Biology page. This is a simple test page to confirm that GitHub Pages renders HTML correctly.</p>
-  <p>If you can see this text as normal webpage (not as code), then your setup is correct ✅.</p>
-</body>
-</html>
+# Import library
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+import numpy as np
+
+# -------------------------
+# 1. Visualisasi Sel & Organel
+# -------------------------
+def visualize_cell():
+    fig, ax = plt.subplots(figsize=(6,6))
+
+    # Sel utama
+    cell = patches.Circle((0.5, 0.5), 0.4, edgecolor='black', facecolor='#a1d99b', linewidth=2)
+    ax.add_patch(cell)
+
+    # Nukleus
+    nucleus = patches.Circle((0.5, 0.5), 0.15, edgecolor='black', facecolor='#fc9272', linewidth=2)
+    ax.add_patch(nucleus)
+
+    # Mitokondria
+    mito_coords = [(0.3,0.6), (0.6,0.7), (0.65,0.4), (0.35,0.35)]
+    for x, y in mito_coords:
+        mito = patches.Ellipse((x, y), 0.08, 0.04, edgecolor='black', facecolor='#fdd0a2', linewidth=1.5)
+        ax.add_patch(mito)
+
+    # Ribosom (bulatan kecil)
+    ribo_coords = [(0.45,0.55), (0.55,0.45), (0.5,0.65), (0.6,0.5)]
+    for x, y in ribo_coords:
+        ribo = patches.Circle((x, y), 0.02, edgecolor='black', facecolor='#9ecae1')
+        ax.add_patch(ribo)
+
+    # Memperindah tampilan
+    ax.set_xlim(0,1)
+    ax.set_ylim(0,1)
+    ax.set_aspect('equal')
+    ax.axis('off')
+    plt.title("Visualisasi Sel: Nukleus, Mitokondria, Ribosom")
+    plt.show()
+
+
+# -------------------------
+# 2. Simulasi Pertumbuhan Sel
+# --------
+
