@@ -1,44 +1,50 @@
-# Import library
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-import numpy as np
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cell Biology</title>
+    <style>
+        #cellCanvas { border:1px solid black; }
+        #chartCanvas { border:1px solid black; margin-top:20px;}
+    </style>
+</head>
+<body>
+    <h2>Visualisasi Sel</h2>
+    <canvas id="cellCanvas" width="400" height="400"></canvas>
+    
+    <h2>Pertumbuhan Sel</h2>
+    <canvas id="chartCanvas" width="400" height="200"></canvas>
 
-# -------------------------
-# 1. Visualisasi Sel & Organel
-# -------------------------
-def visualize_cell():
-    fig, ax = plt.subplots(figsize=(6,6))
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Visualisasi Sel
+        const canvas = document.getElementById('cellCanvas');
+        const ctx = canvas.getContext('2d');
 
-    # Sel utama
-    cell = patches.Circle((0.5, 0.5), 0.4, edgecolor='black', facecolor='#a1d99b', linewidth=2)
-    ax.add_patch(cell)
+        // Sel
+        ctx.fillStyle = '#a1d99b';
+        ctx.beginPath(); ctx.arc(200,200,160,0,2*Math.PI); ctx.fill(); ctx.stroke();
+        // Nukleus
+        ctx.fillStyle = '#fc9272';
+        ctx.beginPath(); ctx.arc(200,200,60,0,2*Math.PI); ctx.fill(); ctx.stroke();
 
-    # Nukleus
-    nucleus = patches.Circle((0.5, 0.5), 0.15, edgecolor='black', facecolor='#fc9272', linewidth=2)
-    ax.add_patch(nucleus)
+        // Pertumbuhan Sel (Chart.js)
+        const ctxChart = document.getElementById('chartCanvas').getContext('2d');
+        const time = Array.from({length:25}, (_,i)=>i); // 0-24 jam
+        const cells = time.map(t => 100 * Math.exp(0.2 * t));
 
-    # Mitokondria
-    mito_coords = [(0.3,0.6), (0.6,0.7), (0.65,0.4), (0.35,0.35)]
-    for x, y in mito_coords:
-        mito = patches.Ellipse((x, y), 0.08, 0.04, edgecolor='black', facecolor='#fdd0a2', linewidth=1.5)
-        ax.add_patch(mito)
-
-    # Ribosom (bulatan kecil)
-    ribo_coords = [(0.45,0.55), (0.55,0.45), (0.5,0.65), (0.6,0.5)]
-    for x, y in ribo_coords:
-        ribo = patches.Circle((x, y), 0.02, edgecolor='black', facecolor='#9ecae1')
-        ax.add_patch(ribo)
-
-    # Memperindah tampilan
-    ax.set_xlim(0,1)
-    ax.set_ylim(0,1)
-    ax.set_aspect('equal')
-    ax.axis('off')
-    plt.title("Visualisasi Sel: Nukleus, Mitokondria, Ribosom")
-    plt.show()
-
-
-# -------------------------
-# 2. Simulasi Pertumbuhan Sel
-# --------
-
+        new Chart(ctxChart, {
+            type: 'line',
+            data: {
+                labels: time,
+                datasets: [{
+                    label: 'Jumlah Sel',
+                    data: cells,
+                    borderColor: 'green',
+                    fill: false
+                }]
+            },
+            options: { responsive: false }
+        });
+    </script>
+</body>
+</html>
