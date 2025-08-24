@@ -5,11 +5,11 @@ All-in-one biology learning resources for students and enthusiasts
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Biology Explore</title>
+  
 </head>
 <body>
   <h1>Welcome to Biology Explore</h1>
-  <p>All-in-one biology learning resources for students and enthusiasts.</p>
+
 
   <ul>
     <li><a href="cell-biology.html">Cell Biology</a></li>
